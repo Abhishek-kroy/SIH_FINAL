@@ -1,0 +1,490 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_accessControl",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "addBeneficiary",
+    "inputs": [
+      {
+        "name": "_accountHolderName",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "approveLoan",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getBeneficiary",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "accountHolderName",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "creditScore",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "riskBand",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "loanApproved",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "totalLoanAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "amountRepaid",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "consumptionDataHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "lastUpdated",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getOutstandingLoan",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "recordRepayment",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "revokeLoan",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateBeneficiary",
+    "inputs": [
+      {
+        "name": "_accountHolderName",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateConsumptionDataHash",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_hash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateCreditScore",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_score",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "_riskBand",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateRiskBand",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_newRiskBand",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "BeneficiaryAdded",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "accountHolderName",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "BeneficiaryUpdated",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "accountHolderName",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ConsumptionDataHashUpdated",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "newHash",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "CreditScoreUpdated",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "score",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "riskBand",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "LoanApproved",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "LoanRevoked",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RepaymentRecorded",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RiskBandUpdated",
+    "inputs": [
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "indexed": true,
+        "internalType": "string"
+      },
+      {
+        "name": "newRiskBand",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  }
+]

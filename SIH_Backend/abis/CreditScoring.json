@@ -1,0 +1,412 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_accessControl",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "_beneficiaryData",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "_transactionHistory",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "addBeneficiary",
+    "inputs": [
+      {
+        "name": "_accountHolderName",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "approveLoan",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "assignRole",
+    "inputs": [
+      {
+        "name": "_account",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "_role",
+        "type": "uint8",
+        "internalType": "enum AccessControl.Role"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getBeneficiary",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "accountHolderName",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "creditScore",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "riskBand",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "loanApproved",
+        "type": "bool",
+        "internalType": "bool"
+      },
+      {
+        "name": "totalLoanAmount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "amountRepaid",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "consumptionDataHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "lastUpdated",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getOutstandingLoan",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getRole",
+    "inputs": [
+      {
+        "name": "_account",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8",
+        "internalType": "enum AccessControl.Role"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getTransaction",
+    "inputs": [
+      {
+        "name": "_index",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "timestamp",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "beneficiaryKey",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "txType",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "details",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getTransactionCount",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "recordRepayment",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "revokeLoan",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setBeneficiaryAddress",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_account",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateBeneficiary",
+    "inputs": [
+      {
+        "name": "_accountHolderName",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateConsumptionDataHash",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_hash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateCreditScore",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_score",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "_riskBand",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateRiskBand",
+    "inputs": [
+      {
+        "name": "_accountNumber",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_ifscCode",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "_newRiskBand",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  }
+]

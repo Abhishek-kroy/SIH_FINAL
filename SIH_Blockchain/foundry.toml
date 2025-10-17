@@ -1,0 +1,31 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+
+# Compiler settings
+solc = "0.8.20"
+
+# Gas and optimizer
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+
+# Fuzzing settings
+fuzz_runs = 5000          # number of fuzzing runs per test (default: 256)
+fuzz_max_depth = 256      # maximum call depth (default: 256, can increase if recursive tests)
+fuzz_seed = "0x12345678"  # fixed seed for reproducibility (remove if you want random each run)
+
+# Verbosity
+verbosity = 3             # 2 = normal, 3 = detailed logs, 4 = include traces, 5 = extreme debug
+
+# EVM settings
+evm_version = "shanghai"  # align with latest hardfork rules
+
+# Gas reporting
+gas_reports = ["CreditScoring", "AccessControl", "BeneficiaryData", "TransactionHistory"]
+
+[profile.ci]  # For CI pipelines
+fuzz_runs = 10000
+verbosity = 4

@@ -1,0 +1,419 @@
+{
+  "info": {
+    "name": "Blockchain Credit Scoring API",
+    "_postman_id": "12345678-abcd-efgh-ijkl-1234567890ab",
+    "description": "Postman collection to test blockchain-related backend endpoints in sequence",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "health"]
+        }
+      }
+    },
+    {
+      "name": "Assign Role",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"1234567890\",\n  \"ifscCode\": \"SBIN0001234\",\n  \"role\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/roles/assign",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "roles", "assign"]
+        }
+      }
+    },
+    {
+      "name": "Set Beneficiary Address",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"1234567890\",\n  \"ifscCode\": \"SBIN0001234\",\n  \"address\": \"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/roles/set-beneficiary-address",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "roles", "set-beneficiary-address"]
+        }
+      }
+    },
+    {
+      "name": "Remove Role",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountNumber\": \"1234567890\",\n  \"ifscCode\": \"SBIN0001234\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/roles/remove",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "roles", "remove"]
+        }
+      }
+    },
+    {
+      "name": "Get Role",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/roles/get/0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "roles", "get", "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"]
+        }
+      }
+    },
+    {
+      "name": "Add Beneficiary",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"accountHolderName\": \"John Doe\",\n  \"accountNumber\": \"1234567890\",\n  \"ifscCode\": \"SBIN0001234\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/add",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "add"]
+        }
+      }
+    },
+    {
+      "name": "Get Beneficiary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/1234567890/SBIN0001234",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "1234567890", "SBIN0001234"]
+        }
+      }
+    },
+    {
+      "name": "Update Credit Score",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"score\": 750,\n  \"riskBand\": \"Low\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/1234567890/SBIN0001234/credit-score",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "1234567890", "SBIN0001234", "credit-score"]
+        }
+      }
+    },
+    {
+      "name": "Approve Loan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 10000\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/:accountnumer/:ifsccode/loan/approve",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "123", "loan", "approve"]
+        }
+      }
+    },
+    {
+      "name": "Record Repayment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": 5000\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/:accountnumer/:ifsccoderepayment",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "123", "repayment"]
+        }
+      }
+    },
+    {
+      "name": "Revoke Loan",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/123/loan/revoke",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "123", "loan", "revoke"]
+        }
+      }
+    },
+    {
+      "name": "Update Risk Band",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"newRiskBand\": \"Medium\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/123/risk-band",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "123", "risk-band"]
+        }
+      }
+    },
+    {
+      "name": "Get Outstanding Loan",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/123/outstanding-loan",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "123", "outstanding-loan"]
+        }
+      }
+    },
+    {
+      "name": "Get Transaction Count",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/transactions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "transactions"]
+        }
+      }
+    },
+    {
+      "name": "Get Transaction",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/transactions/0",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "transactions", "0"]
+        }
+      }
+    },
+    {
+      "name": "Get Transactions for Beneficiary",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/beneficiaries/1234567890/SBIN0001234/transactions",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "beneficiaries", "1234567890", "SBIN0001234", "transactions"]
+        }
+      }
+    },
+    {
+      "name": "Dashboard Beneficiaries",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/dashboard/beneficiaries",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "dashboard", "beneficiaries"]
+        }
+      }
+    },
+    {
+      "name": "Dashboard Stats",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/blockchain/dashboard/stats",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "blockchain", "dashboard", "stats"]
+        }
+      }
+    }
+  ]
+}

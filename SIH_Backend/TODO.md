@@ -1,0 +1,4 @@
+- [x] Update .env with blockchain variables (contract addresses, chainId)
+- [x] Modify config/blockchain.js to read contract addresses from .env
+- [x] Add chainId to config for validation
+- Test the configuration
