@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Prediction System</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .feature-count {
+            text-align: center;
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            color: #0066cc;
+            font-weight: 600;
+        }
+        .form-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+        .section-title::before {
+            content: attr(data-icon);
+            margin-right: 10px;
+            font-size: 20px;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .help-text {
+            font-size: 12px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+        input, select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .predict-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            min-width: 200px;
+            transition: transform 0.2s;
+        }
+        .predict-btn:hover {
+            transform: translateY(-2px);
+        }
+        .predict-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .results {
+            margin-top: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: none;
+        }
+        .results.show {
+            display: block;
+        }
+        .result-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .result-title {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .metric:last-child {
+            border-bottom: none;
+        }
+        .metric-label {
+            font-weight: 500;
+            color: #555;
+        }
+        .metric-value {
+            font-weight: 600;
+        }
+        .risk-low { color: #28a745; }
+        .risk-high { color: #dc3545; }
+        .income-high { color: #007bff; }
+        .income-medium { color: #ffc107; }
+        .income-low { color: #6c757d; }
+        .recommendation {
+            background: #e7f3ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            border-left: 3px solid #007bff;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #f5c6cb;
+        }
+        .new-feature {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 ML Model Prediction System</h1>
+        <p class="subtitle">Income Band Classification & Default Risk Assessment</p>
+        <div class="feature-count">✅ Updated with 20 Features (including num_defaults)</div>
+
+        <button class="predict-btn sample-data-btn" onclick="fillSampleData()">📝 Fill Sample Data</button>
+
+        <form id="predictionForm">
+            <!-- Geographic -->
+            <div class="form-section">
+                <div class="section-title" data-icon="📍">Geographic Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="region">Region</label>
+                        <div class="help-text">Rural or Urban</div>
+                        <select id="region" name="region" required>
+                            <option value="">Select Region</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Urban">Urban</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!-- Household -->
+            <div class="form-section">
+                <div class="section-title" data-icon="👥">Household Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="household_size">Household Size</label>
+                        <div class="help-text">1-100</div>
+                        <input type="number" id="household_size" name="household_size" min="1" max="100" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Loan -->
+            <div class="form-section">
+                <div class="section-title" data-icon="💰">Loan Information</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="num_loans">Number of Loans</label>
+                        <div class="help-text">0-100</div>
+                        <input type="number" id="num_loans" name="num_loans" min="0" max="100" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="avg_loan_amount">Average Loan Amount</label>
+                        <div class="help-text">0-200,000</div>
+                        <input type="number" id="avg_loan_amount" name="avg_loan_amount" min="0" max="200000" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Payment History -->
+            <div class="form-section">
+                <div class="section-title" data-icon="📊">Payment History</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="on_time_ratio">On-Time Ratio</label>
+                        <div class="help-text">0.0-1.0</div>
+                        <input type="number" id="on_time_ratio" name="on_time_ratio" min="0.0" max="1.0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="avg_days_late">Avg Days Late</label>
+                        <div class="help-text">0-1000</div>
+                        <input type="number" id="avg_days_late" name="avg_days_late" min="0" max="1000" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="max_dpd">Max Days Past Due</label>
+                        <div class="help-text">0-2000</div>
+                        <input type="number" id="max_dpd" name="max_dpd" min="0" max="2000" required>
+                    </div>
+                    <div class="form-group new-feature">
+                        <label for="num_defaults">Number of Defaults</label>
+                        <div class="help-text">0-1000</div>
+                        <input type="number" id="num_defaults" name="num_defaults" min="0" max="1000" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Energy -->
+            <div class="form-section">
+                <div class="section-title" data-icon="⚡">Energy Consumption</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="avg_kwh_30d">Avg kWh (30d)</label>
+                        <div class="help-text">0-1000</div>
+                        <input type="number" id="avg_kwh_30d" name="avg_kwh_30d" min="0" max="1000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="var_kwh_30d">kWh Variance</label>
+                        <div class="help-text">0-1000</div>
+                        <input type="number" id="var_kwh_30d" name="var_kwh_30d" min="0" max="1000" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="seasonality_index">Seasonality Index</label>
+                        <div class="help-text">0.0-10</div>
+                        <input type="number" id="seasonality_index" name="seasonality_index" min="0.0" max="10" step="0.01" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Recharge -->
+            <div class="form-section">
+                <div class="section-title" data-icon="📱">Recharge Behavior</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="avg_recharge_amount">Avg Recharge Amt</label>
+                        <div class="help-text">0-2000</div>
+                        <input type="number" id="avg_recharge_amount" name="avg_recharge_amount" min="0" max="2000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recharge_freq_30d">Freq (30d)</label>
+                        <div class="help-text">0-30</div>
+                        <input type="number" id="recharge_freq_30d" name="recharge_freq_30d" min="0" max="30" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="last_recharge_days">Days Since Last</label>
+                        <div class="help-text">0-100</div>
+                        <input type="number" id="last_recharge_days" name="last_recharge_days" min="0" max="100" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Bill Payment -->
+            <div class="form-section">
+                <div class="section-title" data-icon="💳">Bill Payment</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bill_on_time_ratio">Bill On-Time Ratio</label>
+                        <div class="help-text">0.00-2.0</div>
+                        <input type="number" id="bill_on_time_ratio" name="bill_on_time_ratio" min="0.00" max="2.0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="avg_bill_delay">Avg Bill Delay</label>
+                        <div class="help-text">0-1,000</div>
+                        <input type="number" id="avg_bill_delay" name="avg_bill_delay" min="0" max="1000" step="0.1" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="avg_bill_amount">Avg Bill Amount</label>
+                        <div class="help-text">0-1,00,000</div>
+                        <input type="number" id="avg_bill_amount" name="avg_bill_amount" min="0" max="100000" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Demographics -->
+            <div class="form-section">
+                <div class="section-title" data-icon="🎓">Demographics</div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="education_level">Education Level</label>
+                        <div class="help-text">Illiterate/Primary/Secondary/Graduate</div>
+                        <select id="education_level" name="education_level" required>
+                            <option value="">Select</option>
+                            <option value="Illiterate">Illiterate</option>
+                            <option value="Primary">Primary</option>
+                            <option value="Secondary">Secondary</option>
+                            <option value="Graduate">Graduate</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">Occupation</label>
+                        <div class="help-text">DailyWage/Farmer/…</div>
+                        <select id="occupation" name="occupation" required>
+                            <option value="">Select</option>
+                            <option value="DailyWage">DailyWage</option>
+                            <option value="Farmer">Farmer</option>
+                            <option value="SmallBusiness">SmallBusiness</option>
+                            <option value="Service">Service</option>
+                            <option value="Shopkeeper">Shopkeeper</option>
+                            <option value="Laborer">Laborer</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="asset_score">Asset Score</label>
+                        <div class="help-text">0-10000</div>
+                        <input type="number" id="asset_score" name="asset_score" min="0" max="10000" required>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="predict-btn">🔮 Generate Prediction</button>
+        </form>
+
+        <div id="results" class="results">
+            <div class="result-card">
+                <div class="result-title">📊 Prediction Results</div>
+                <div id="predictions-content"></div>
+            </div>
+            <div class="result-card">
+                <div class="result-title">💡 Recommendations</div>
+                <div id="recommendations-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function fillSampleData() {
+            document.getElementById('region').value = 'Urban';
+            document.getElementById('household_size').value = 4;
+            document.getElementById('num_loans').value = 2;
+            document.getElementById('avg_loan_amount').value = 25000;
+            document.getElementById('on_time_ratio').value = 0.85;
+            document.getElementById('avg_days_late').value = 3;
+            document.getElementById('max_dpd').value = 15;
+            document.getElementById('num_defaults').value = 0;
+            document.getElementById('avg_kwh_30d').value = 120;
+            document.getElementById('var_kwh_30d').value = 25;
+            document.getElementById('seasonality_index').value = 1.2;
+            document.getElementById('avg_recharge_amount').value = 200;
+            document.getElementById('recharge_freq_30d').value = 8;
+            document.getElementById('last_recharge_days').value = 5;
+            document.getElementById('bill_on_time_ratio').value = 0.9;
+            document.getElementById('avg_bill_delay').value = 2;
+            document.getElementById('avg_bill_amount').value = 800;
+            document.getElementById('education_level').value = 'Secondary';
+            document.getElementById('occupation').value = 'Service';
+            document.getElementById('asset_score').value = 4;
+        }
+
+        async function callPythonBackend(formData) {
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+                return await response.json();
+            } catch (error) {
+                return { success: false, errors: [`Connection error: ${error.message}`] };
+            }
+        }
+
+        document.getElementById('predictionForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const button = document.querySelector('.predict-btn');
+            const results = document.getElementById('results');
+            const pc = document.getElementById('predictions-content');
+            const rc = document.getElementById('recommendations-content');
+
+            button.disabled = true;
+            button.textContent = '🔄 Processing...';
+            results.classList.remove('show');
+
+            const data = Object.fromEntries(new FormData(this).entries());
+            try {
+                const result = await callPythonBackend(data);
+                if (result.success) {
+                    const p = result.predictions;
+                    pc.innerHTML = `
+                        <div class="metric"><span class="metric-label">Default Risk:</span>
+                            <span class="metric-value ${p.default_risk_category === 'High Risk' ? 'risk-high' : 'risk-low'}">
+                                ${(p.default_risk_probability*100).toFixed(2)}% (${p.default_risk_category})
+                            </span>
+                        </div>
+                        <div class="metric"><span class="metric-label">Income Band:</span>
+                            <span class="metric-value income-${p.predicted_income_band.toLowerCase().replace(' ', '-')}" >
+                                ${p.predicted_income_band}
+                            </span>
+                        </div>
+                        <div class="metric"><span class="metric-label">Income Score:</span>
+                            <span class="metric-value">${(p.income_score_normalized*100).toFixed(2)}%</span>
+                        </div>
+                        <div class="metric"><span class="metric-label">Credit Score:</span>
+                            <span class="metric-value">${(p.composite_credit_score*100).toFixed(2)}%</span>
+                        </div>
+                        <div class="metric"><span class="metric-label">Segment:</span>
+                            <span class="metric-value">${p.customer_segment}</span>
+                        </div>
+                    `;
+                    let probHtml = '<div style="margin-top:15px;padding:10px;background:#f0f8ff;border-radius:5px;"><strong>Income Band Probabilities:</strong><br>';
+                    for (let [b,pr] of Object.entries(p.income_band_probabilities)){
+                        probHtml += `<div style="margin:5px 0;">${b}: ${(pr*100).toFixed(2)}%</div>`;
+                    }
+                    probHtml += '</div>';
+                    pc.innerHTML += probHtml;
+
+                    rc.innerHTML = p.recommendations.map(r=> `<div class="recommendation">${r}</div>`).join('');
+                    results.classList.add('show');
+                } else {
+                    pc.innerHTML = result.errors.map(e=> `<div class="error">${e}</div>`).join('');
+                    results.classList.add('show');
+                }
+            } catch(err) {
+                pc.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+                results.classList.add('show');
+            }
+
+            button.disabled = false;
+            button.textContent = '🔮 Generate Prediction';
+        });
+    </script>
+</body>
+</html>
